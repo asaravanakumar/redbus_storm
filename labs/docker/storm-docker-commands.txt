@@ -1,0 +1,7 @@
+sudo docker run -d -p 2181:2181 --restart always --name zookeeper zookeeper
+
+sudo docker run -d -p 6627:6627 --restart always --name nimbus --link zookeeper:zookeeper storm storm nimbus
+
+sudo docker run -d --restart always --name supervisor --link zookeeper:zookeeper --link nimbus:nimbus storm storm supervisor
+
+sudo docker run -d -p 8080:8080 --restart always --name ui --link nimbus:nimbus storm storm ui
