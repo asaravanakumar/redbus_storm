@@ -1,0 +1,32 @@
+What is Storm?
+	- Distributed stream processing computation framework
+	
+Background
+	- Written in Clojure / Java
+	- Created by Nathan Marz and team at BackType
+	- Acquired by Twitter
+	- Initial Release on 17 Sep 2011
+	- 1.0.0 on 12 April 2016
+	- 2.0.0 on 30 May 2019
+	- Current Stable Release - 2.4.0
+	
+Concepts
+	- Tuple 	-> List of ordered elements. Main Data Structure. Supports all data types.
+	- Stream	-> Stream is an unordered sequence of tuples
+	- Spouts 	-> Source of stream
+	- Bolts		-> Logical processing units. Performs filtering, aggregation, joining, interacting with data sources and databases
+	- Topology  -> Spouts and bolts are connected together and they form a topology. 
+	- DAG		-> Directed graph where vertices are computation and edges are stream of data
+	
+	- Storm application is designed as a "topology" in the shape of a directed acyclic graph (DAG)
+	- Spouts and bolts acting as the graph vertices. Edges on the graph are named streams and direct data from one node to another
+	- Together, the topology acts as a data transformation pipeline
+	
+Storm Architecture
+	- Components
+		- Master - Nimbus		-> Responsible for distributing data among all the worker nodes, assign tasks to worker nodes and monitoring failures
+		- Worker - Supervisor	-> Follow instructions given by the nimbus and governs worker processes to complete the tasks assigned by the nimbus.
+		- Worker Process		-> Execute tasks related to a specific topology. Creates executors and asks them to perform a particular task.
+		- Executor				-> Runs one or more tasks but only for a specific spout or bolt
+		- Task					-> Performs actual data processing. It is either a spout or a bolt
+		- Zookeeper				-> Helps the supervisor to interact with the nimbus. Responsible to maintain the state of nimbus and supervisor.
