@@ -27,6 +27,9 @@ public class WordCountTopology {
         builder.setBolt("counter", new WordCountBolt(), 1)
                 .fieldsGrouping("splitter", new Fields("word"));
 
+        builder.setBolt("printer", new PrinterBolt(), 1)
+                .shuffleGrouping("counter");
+
         // Configure the topology
         Config conf = new Config();
         conf.setDebug(true);
